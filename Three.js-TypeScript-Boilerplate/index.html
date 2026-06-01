@@ -3,12 +3,32 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Three.js TypeScript Tutorials by Sean Bradley : https://sbcode.net/threejs</title>
+    <title>WebDev</title>
   </head>
 
   <body>
-    <canvas id="header"></canvas>
-    <canvas id="main"></canvas>
+    <div id="cursor"></div>
+    <div id="cursor-ring"></div>
+    <div id="progress"></div>
+    <div class="noise"></div>
+    <div id="toast"></div>
+
+    <nav>
+      <div class="logo">LOGO</div>
+      <ul class="nav-links">
+        <li><a href="#link1">Link 1</a></li>
+        <li><a href="#link2">Link 2</a></li>
+        <li><a href="#link3">Link 3</a></li>
+        <li><a href="#link4">Link 4</a></li>
+      </ul>
+      <div class="nav-right">
+        <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
+          <span class="toggle-icon" id="themeIcon">☀️</span>
+          <span id="theme-label">Light</span>
+        </button>
+      </div>
+    </nav>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

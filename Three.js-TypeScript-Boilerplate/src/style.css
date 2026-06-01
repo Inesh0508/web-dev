@@ -1,3 +1,75 @@
+:root {
+  --bg: #0a0a0f;
+  --surface: #12121a;
+  --surface2: #1c1c28;
+  --border: rgba(255,255,255,0.08);
+  --text: #f0f0f8;
+  --muted:rgba(240,240,248,0.45);
+  --accent: #7c6fff;
+  --accent2: #ff6b9d;
+  --accent3: #00e5c9;
+  --glow: rgba(124,111,255,0.18);
+  --card-bg: rgba(255,255,255,0.03);
+  --nav-bg: rgba(10,10,15,0.85);
+  --shadow: 0 8px 40px rgba(0,0,0,0.6);
+  --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+
+[data-theme="light"] {
+  --bg: #f4f3ff;
+  --surface: #ffffff;
+  --surface2: #ebe9ff;
+  --border: rgba(0,0,0,0.1);
+  --text: #1a1a2e;
+  --muted: rgba(26,26,46,0.5);
+  --accent: #5b4cf5;
+  --accent2: #e8366b;
+  --accent3: #00b89a;
+  --glow: rgba(91,76,245,0.12);
+  --card-bg: rgba(0,0,0,0.03);
+  --nav-bg: rgba(244,243,255,0.88);
+  --shadow: 0 8px 40px rgba(91,76,245,0.1);
+}
+
+/* Custom Cursor */
+
+#cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--accent);
+  border-radius: 50%;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.08s,width 0.2s,height 0.2s,background 0.2s;
+  mix-blend-mode: difference;
+}
+
+#cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s cubic-bezier(0.4,0,0.2,1),width 0.25s,height 0.25s,opacity 0.2s;
+  opacity:0.6;
+}
+
+body:has(a:hover) #cursor,body:has(button:hover) #cursor {
+  width: 20px;
+  height: 20px;
+}
+body:has(a:hover) #cursor-ring,body:has(button:hover) #cursor-ring {
+  width: 56px;
+  height: 56px;
+  opacity:0.3;
+}
+
 body {
   overflow: hidden;
   margin: 0px;
