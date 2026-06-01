@@ -24,6 +24,14 @@ function aimRing() {
 }
 aimRing()
 
+function toggleTheme() {
+  const html = document.documentElement
+  const isDark = html.dataset.theme === 'dark'
+  html.dataset.theme = isDark ? 'light' : 'dark'
+  document.getElementById('themeIcon')!.textContent = isDark ? '🌙' : '☀️'
+  document.getElementById('themeLabel')!.textContent = isDark ? 'Dark' : 'Light'
+}
+
 // const scene = new THREE.Scene()
 // scene.background = new THREE.Color(0x001a8c)
 
