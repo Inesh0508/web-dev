@@ -53,6 +53,7 @@ body{
 
 #cursor {
   position: fixed;
+  pointer-events: none;
   width: 12px;
   height: 12px;
   background: var(--accent);
@@ -67,6 +68,7 @@ body{
 
 #cursor-ring {
   position: fixed;
+  pointer-events: none;
   width: 36px;
   height: 36px;
   border: 1.5px solid var(--accent);
@@ -688,10 +690,10 @@ footer{
   section{padding:4rem 1.2rem;}
 }
 
-body {
+/* body {
   overflow: hidden;
   margin: 0px;
-}
+} */
 
 #header {
   /* position: fixed; */

@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>WebDev</title>
+    <link rel="stylesheet" href="src/style.css">
   </head>
 
   <body>
@@ -95,24 +96,30 @@
       <div class="particle-controls">
         <div class="control-group">
           <span class="control-label">Gravity: <span id="gravVal">0.08</span></span>
-          <input type="range" id="gravRange" min="0" max="30" value="8" oninput="updateGrav(this)">
+          <input type="range" id="gravRange" min="0" max="30" value="8">
         </div>
         <div class="control-group">
           <span class="control-label">Count: <span id="countVal">80</span></span>
-          <input type="range" id="countRange" min="10" max="200" value="80" oninput="updateCount(this)">
+          <input type="range" id="countRange" min="10" max="200" value="80">
         </div>
         <div class="control-group">
           <span class="control-label">Speed: <span id="speedVal">6</span></span>
-          <input type="range" id="speedRange" min="1" max="20" value="6" oninput="updateSpeed(this)">
+          <input type="range" id="speedRange" min="1" max="20" value="6">
         </div>
+        
         <div class="control-group">
-          <span class="control-label">Color</span>
-          <div class="color-row">
-            <div class="color dot selected" style="background: #7c6fff;" onclick="pColor='#7c6fff', setDot(this)"></div>
-            <div class="color dot" style="background: #ff6b9d;" onclick="pColor='#ff6b9d', setDot(this)"></div>
-            <div class="color dot" style="background: #00e5c9;" onclick="pColor='#00e5c9', setDot(this)"></div>
-            <div class="color dot" style="background: #ffa94d;" onclick="pColor='#ffa94d', setDot(this)"></div>
-            <div class="color dot" style="background: #ffffff;" onclick="pColor='#ffffff', setDot(this)"></div>
+          <span class="control-label">Background</span>
+          <input type="color" id="bgColorPicker" value="#0a0a0f" style="width:100%; height:30px; border-radius:4px; border:1px solid var(--border); cursor:pointer;">
+        </div>
+
+        <div class="control-group">
+          <span class="control-label">Particle Color</span>
+          <div class="color-row" id="particleColorContainer">
+            <div class="color-dot selected" style="background: #7c6fff;" data-color="#7c6fff"></div>
+            <div class="color-dot" style="background: #ff6b9d;" data-color="#ff6b9d"></div>
+            <div class="color-dot" style="background: #00e5c9;" data-color="#00e5c9"></div>
+            <div class="color-dot" style="background: #ffa94d;" data-color="#ffa94d"></div>
+            <div class="color-dot" style="background: #ffffff;" data-color="#ffffff"></div>
           </div>
         </div>
         <button class="btn btn-ghost" onclick="clearParticles()" style="margin-top: auto;">Clear</button>
@@ -147,6 +154,7 @@
       <div class="footer-note">Contact for more...</div>
     </footer>
 
-    <script type="module" src="/src/main.ts"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
