@@ -16,10 +16,10 @@
     <nav>
       <div class="logo">LOGO</div>
       <ul class="nav-links">
-        <li><a href="#link1">Link 1</a></li>
-        <li><a href="#link2">Link 2</a></li>
-        <li><a href="#link3">Link 3</a></li>
-        <li><a href="#link4">Link 4</a></li>
+        <li><a href="#shapes">Shapes</a></li>
+        <li><a href="#particles-section">Particles</a></li>
+        <li><a href="#wave-section">Wave</a></li>
+        <li><a href="#gallery">Gallery</a></li>
       </ul>
       <div class="nav-right">
         <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()">
@@ -28,6 +28,124 @@
         </button>
       </div>
     </nav>
+
+    <section id="hero">
+      <canvas id="hero-canvas"></canvas>
+      <div class="hero-content">
+        <div class="hero-tag">Interactive 3D Experience</div>
+        <h1>Feel the <br><span>Void</span><br>Move. </h1>
+        <p class="hero-sub">A living, breathing 3D world awaits you.</p>
+        <div class="hero-btns">
+          <a href="#shapes" class="btn btn-primary">Explore shapes</a>
+          <a href="#particles-section" class="btn btn-ghost">View particles</a>
+        </div>
+      </div>
+      <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <section id="shapes">
+      <div class="section-label">// 3D Objects</div>
+      <h2 class="section-title">Interactive 3D Shapes</h2>
+      <p style="color: var(--muted);max-width: 500px;">Click the color ships to change materials</p>
+      <div class="shapes-grid">
+        <div class="shape-card" onclick="cycleShape(0)">
+          <div class="shape-canvas-wrap"><canvas id="sc0" style="height: 100%;width: 100%;"></canvas></div>
+          <div class="shape-name">Torus Knot</div>
+          <div class="shape-desc">A parametric surface twisted in 3D space</div>
+          <div class="shape-controls" id="chips0">
+            <span class="chip active" onclick="setMat(event,0,'#7c6fff')">Violet</span>
+            <span class="chip" onclick="setMat(event,0,'#ff6b9d')">Rose</span>
+            <span class="chip" onclick="setMat(event,0,'#00e5c9')">Cyan</span>
+            <span class="chip" onclick="setMat(event,0,'#ffa94d')">Amber</span>
+          </div>
+        </div>
+        <div class="shape-card" onclick="cycleShape(1)">
+          <div class="shape-canvas-wrap"><canvas id="sc1" style="height: 100%;width: 100%;"></canvas></div>
+          <div class="shape-name">Icosahedron</div>
+          <div class="shape-desc">20-faced geometric solid, wireframe mode</div>
+          <div class="shape-controls" id="chips1">
+            <span class="chip active" onclick="setMat(event,1,'#7c6fff')">Violet</span>
+            <span class="chip" onclick="setMat(event,1,'#ff6b9d')">Rose</span>
+            <span class="chip" onclick="setMat(event,1,'#00e5c9')">Cyan</span>
+            <span class="chip" onclick="setMat(event,1,'#ffa94d')">Amber</span>
+          </div>
+        </div>
+        <div class="shape-card" onclick="cycleShape(2)">
+          <div class="shape-canvas-wrap"><canvas id="sc2" style="height: 100%;width: 100%;"></canvas></div>
+          <div class="shape-name">Sphere</div>
+          <div class="shape-desc">Subdividded UV sphere with specular lighting</div>
+          <div class="shape-controls" id="chips2">
+            <span class="chip active" onclick="setMat(event,2,'#7c6fff')">Violet</span>
+            <span class="chip" onclick="setMat(event,2,'#ff6b9d')">Rose</span>
+            <span class="chip" onclick="setMat(event,2,'#00e5c9')">Cyan</span>
+            <span class="chip" onclick="setMat(event,2,'#ffa94d')">Amber</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="particles-section">
+      <div class="section-label">// Particle Engine</div>
+      <h2 class="section-title">Click to spawn</h2>
+      <p style="color: var(--muted);max-width: 500px;">Click or drag inside the field to create particle explosions. Adjust behaviour below.</p>
+      <div id="particle-playground"><canvas id="pcanvas" style="width: 100%; height: 100%; display: block;"></canvas></div>
+      <div class="particle-controls">
+        <div class="control-group">
+          <span class="control-label">Gravity: <span id="gravVal">0.08</span></span>
+          <input type="range" id="gravRange" min="0" max="30" value="8" oninput="updateGrav(this)">
+        </div>
+        <div class="control-group">
+          <span class="control-label">Count: <span id="countVal">80</span></span>
+          <input type="range" id="countRange" min="10" max="200" value="80" oninput="updateCount(this)">
+        </div>
+        <div class="control-group">
+          <span class="control-label">Speed: <span id="speedVal">6</span></span>
+          <input type="range" id="speedRange" min="1" max="20" value="6" oninput="updateSpeed(this)">
+        </div>
+        <div class="control-group">
+          <span class="control-label">Color</span>
+          <div class="color-row">
+            <div class="color dot selected" style="background: #7c6fff;" onclick="pColor='#7c6fff', setDot(this)"></div>
+            <div class="color dot" style="background: #ff6b9d;" onclick="pColor='#ff6b9d', setDot(this)"></div>
+            <div class="color dot" style="background: #00e5c9;" onclick="pColor='#00e5c9', setDot(this)"></div>
+            <div class="color dot" style="background: #ffa94d;" onclick="pColor='#ffa94d', setDot(this)"></div>
+            <div class="color dot" style="background: #ffffff;" onclick="pColor='#ffffff', setDot(this)"></div>
+          </div>
+        </div>
+        <button class="btn btn-ghost" onclick="clearParticles()" style="margin-top: auto;">Clear</button>
+      </div>
+    </section>
+
+    <section id="stats">
+      <div class="section-label">// By the Numbers</div>
+      <h2 class="section-title">Rendering Power</h2>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-num accent" id="fps-stat">60</div><div class="stat-label">FPS</div></div>
+        <div class="stat-card"><div class="stat-num accent2" id="particle-stat">0</div><div class="stat-label">Live Particles</div></div>
+        <div class="stat-card"><div class="stat-num accent3">WebGL</div><div class="stat-label">Render Engine</div></div>
+        <div class="stat-card"><div class="stat-num accent">3D</div><div class="stat-label">Dimensions</div></div>
+      </div>
+    </section>
+
+    <section id="wave-section">
+      <div class="section-label">// Wave Function</div>
+      <h2 class="section-title">Generative Art</h2>
+      <p style="color: var(--muted);max-width: 500px;">Each piece is procedurally generated, Hover to reveal details. Click to regenerate</p>
+      <div class="gallery-grid">
+        <div class="g-card" onclick="regenGallery(0)"><canvas class="g-canvas" id="gc0"></canvas><div class="g-overlay"><div class="g-title">Lissajous Field</div></div></div>
+        <div class="g-card" onclick="regenGallery(1)"><canvas class="g-canvas" id="gc1"></canvas><div class="g-overlay"><div class="g-title">Lissajous Field</div></div></div>
+        <div class="g-card" onclick="regenGallery(2)"><canvas class="g-canvas" id="gc2"></canvas><div class="g-overlay"><div class="g-title">Lissajous Field</div></div></div>
+        <div class="g-card" onclick="regenGallery(3)"><canvas class="g-canvas" id="gc3"></canvas><div class="g-overlay"><div class="g-title">Lissajous Field</div></div></div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="footer-logo">VOID</div>
+      <div class="footer-note">Contact for more...</div>
+    </footer>
 
     <script type="module" src="/src/main.ts"></script>
   </body>
