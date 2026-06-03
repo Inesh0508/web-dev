@@ -79,6 +79,8 @@ window.toggleTheme = function () {
 // ─── SHAPE CARDS (Three.js) ──────────────────────────────────────────────────
 const currentColors = ['#7c6fff', '#7c6fff', '#7c6fff'];
 const shapeRenderers = [];
+// Queue for setMat calls that arrive before init completes
+const pendingMatChanges = [];
 
 function makeShapeCard(id, type, color) {
   const canvas = document.getElementById('sc' + id);
@@ -107,8 +109,10 @@ function makeShapeCard(id, type, color) {
   else if (type === 'ico') geom = new THREE.IcosahedronGeometry(0.8, 0);
   else geom = new THREE.SphereGeometry(0.8, 32, 32);
 
+  const col = new THREE.Color(color);
   const mat = new THREE.MeshPhongMaterial({
-    color: new THREE.Color(color),
+    color: col,
+    emissive: col.clone().multiplyScalar(0.4),
     shininess: 120,
     transparent: true,
     opacity: type === 'ico' ? 0.9 : 1,
@@ -133,6 +137,20 @@ function makeShapeCard(id, type, color) {
   canvas.addEventListener('mouseleave', () => hover = false);
 
   shapeRenderers.push({ renderer, scene, camera, mesh, mat });
+
+  // Flush any color changes that were queued before this card finished initialising
+  pendingMatChanges
+    .filter(p => p.index === id)
+    .forEach(p => {
+      const c = new THREE.Color(p.hexColor);
+      mat.color.set(c);
+      mat.emissive.set(c.clone().multiplyScalar(0.4));
+      mat.needsUpdate = true;
+    });
+  // Remove flushed entries
+  for (let i = pendingMatChanges.length - 1; i >= 0; i--) {
+    if (pendingMatChanges[i].index === id) pendingMatChanges.splice(i, 1);
+  }
 
   (function animate() {
     requestAnimationFrame(animate);
@@ -159,14 +177,23 @@ window.addEventListener('load', () => {
 
 window.setMat = function (e, index, hexColor) {
   e.stopPropagation();
+  // Update chip UI immediately regardless of whether the card is ready
+  currentColors[index] = hexColor;
+  const chipContainer = document.getElementById('chips' + index);
+  if (chipContainer) chipContainer.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  e.target.classList.add('active');
+
   const cardData = shapeRenderers[index];
   if (cardData && cardData.mat) {
-    cardData.mat.color.set(new THREE.Color(hexColor));
+    // Card is ready — apply immediately
+    const c = new THREE.Color(hexColor);
+    cardData.mat.color.set(c);
+    // Update emissive so wireframe icosahedron visibly changes colour too
+    cardData.mat.emissive.set(c.clone().multiplyScalar(0.4));
     cardData.mat.needsUpdate = true;
-    currentColors[index] = hexColor;
-    const chipContainer = document.getElementById('chips' + index);
-    if (chipContainer) chipContainer.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-    e.target.classList.add('active');
+  } else {
+    // Card not initialised yet — queue for when it's ready
+    pendingMatChanges.push({ index, hexColor });
   }
 };
 
